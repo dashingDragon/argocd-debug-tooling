@@ -8,6 +8,8 @@ metadata:
     app.kubernetes.io/component: repo-server
 spec:
   automountServiceAccountToken: false
+  imagePullSecrets:
+  - name: container-registries
   containers:
   - name: repo-server
     image: jfrog.ledgerlabs.net/ossproxy-oci-proxy-dockerio/library/python:3.12-slim
