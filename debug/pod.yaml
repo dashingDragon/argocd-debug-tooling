@@ -12,7 +12,7 @@ spec:
   - name: container-registries
   containers:
   - name: repo-server
-    image: jfrog.ledgerlabs.net/ossproxy-oci-proxy-dockerio/library/python:3.12-slim
+    image: jfrog.ledgerlabs.net/ossproxy-oci-proxy-dockerio/library/python:3.11-slim
     command:
     - bash
     - -c
